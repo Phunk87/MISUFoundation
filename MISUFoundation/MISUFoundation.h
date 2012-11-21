@@ -9,7 +9,14 @@
 #ifndef WeikanHD_MISUFoundation_h
 #define WeikanHD_MISUFoundation_h
 
+// memory
 #import "MISUMemory.h"
+// network
 #import "MISUNetwork.h"
+// catogery
+#import "NSDictionary+RestRepresentation.h"
+#import "NSObject+LoadImage.h"
+// other
+#import "MISUJSONSerialization.h"
 
 #endif

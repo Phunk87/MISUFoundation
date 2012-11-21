@@ -8,8 +8,9 @@ MISUFoundation 是一个针对OS X和iOS软件开发的轻量级基础框架, �
 
 ---
 
-* Memory 内存
-* Network 网络
+* Memory		内存
+* Network		网络
+* Category	数据类的扩展
 
 ## License 许可
 

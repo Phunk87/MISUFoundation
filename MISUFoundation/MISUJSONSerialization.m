@@ -17,7 +17,7 @@
         return [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:error];
     } else {
         // ios < 5.0
-        // TODO 5.0以下版本支持
+        // TODO: 5.0以下版本支持
         return nil;
     }
 }
@@ -29,7 +29,7 @@
         return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:error];
     } else {
         // ios < 5.0
-        // TODO 5.0以下版本支持
+        // TODO: 5.0以下版本支持
         return nil;
     }
 }
