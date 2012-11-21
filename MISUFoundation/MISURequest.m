@@ -19,22 +19,26 @@
 #pragma mark - public
 + (void)sendAsynchronousWithHttpMethod:(HttpMethod)mehtod
                                    URL:(NSString *)url
+                      httpHeaderFields:(NSMutableDictionary *)headerFields
                                 params:(NSMutableDictionary *)params
                      completionHandler:(MISURequestCompletionBlock)handler {
     
     // 区分请求
     switch (mehtod) {
         case HttpMethodGET:
-            [self getWithURL:url params:params completionHandler:handler];
+            [self getWithURL:url httpHeaderFields:headerFields params:params completionHandler:handler];
             break;
         case HttpMethodPOST:
-            [self postWithURL:url params:params completionHandler:handler];
+            [self postWithURL:url httpHeaderFields:headerFields params:params completionHandler:handler];
             break;
         case HttpMethodDELETE:
-            [self deleteWithURL:url params:params completionHandler:handler];
+            [self deleteWithURL:url httpHeaderFields:headerFields params:params completionHandler:handler];
             break;
         case HttpMethodPUT:
-            [self putWithURL:url params:params completionHandler:handler];
+            [self putWithURL:url httpHeaderFields:headerFields params:params completionHandler:handler];
+            break;
+        case HttpMethodHEAD:
+            [self headWithURL:url httpHeaderFields:headerFields params:params completionHandler:handler];
             break;
         case HttpMethodUnknow:
         default:
@@ -43,6 +47,7 @@
 }
 
 + (void)getWithURL:(NSString *)url
+  httpHeaderFields:(NSMutableDictionary *)headerFields
             params:(NSMutableDictionary *)params
  completionHandler:(MISURequestCompletionBlock)handler {
     // rest化
@@ -52,10 +57,16 @@
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:fullURL] MISUAutorelease];
     request.HTTPMethod = @"GET";
     
+    void (^enumerateHeaderFields)(id key, id obj, BOOL *stop) = ^(id key, id obj, BOOL *stop){
+        [request addValue:obj forHTTPHeaderField:key];
+    };
+    [headerFields enumerateKeysAndObjectsUsingBlock:enumerateHeaderFields];
+    
     [self sendRequest:request withCompletionHandler:handler];
 }
 
 + (void)postWithURL:(NSString *)url
+   httpHeaderFields:(NSMutableDictionary *)headerFields
              params:(NSMutableDictionary *)params
   completionHandler:(MISURequestCompletionBlock)handler {
     // rest化
@@ -64,6 +75,11 @@
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:fullURL] MISUAutorelease];
     request.HTTPMethod = @"POST";
     
+    void (^enumerateHeaderFields)(id key, id obj, BOOL *stop) = ^(id key, id obj, BOOL *stop){
+        [request addValue:obj forHTTPHeaderField:key];
+    };
+    [headerFields enumerateKeysAndObjectsUsingBlock:enumerateHeaderFields];
+    
     NSData *bodyData = [restString dataUsingEncoding:NSUTF8StringEncoding];
     request.HTTPBody = bodyData;
     
@@ -71,6 +87,7 @@
 }
 
 + (void)deleteWithURL:(NSString *)url
+     httpHeaderFields:(NSMutableDictionary *)headerFields
                params:(NSMutableDictionary *)params
     completionHandler:(MISURequestCompletionBlock)handler {
     // rest化
@@ -79,6 +96,11 @@
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:fullURL] MISUAutorelease];
     request.HTTPMethod = @"DELETE";
     
+    void (^enumerateHeaderFields)(id key, id obj, BOOL *stop) = ^(id key, id obj, BOOL *stop){
+        [request addValue:obj forHTTPHeaderField:key];
+    };
+    [headerFields enumerateKeysAndObjectsUsingBlock:enumerateHeaderFields];
+    
     NSData *bodyData = [restString dataUsingEncoding:NSUTF8StringEncoding];
     request.HTTPBody = bodyData;
     
@@ -86,6 +108,7 @@
 }
 
 + (void)putWithURL:(NSString *)url
+  httpHeaderFields:(NSMutableDictionary *)headerFields
             params:(NSMutableDictionary *)params
  completionHandler:(MISURequestCompletionBlock)handler {
     // rest化
@@ -94,6 +117,30 @@
     
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:fullURL] MISUAutorelease];
     request.HTTPMethod = @"PUT";
+    
+    void (^enumerateHeaderFields)(id key, id obj, BOOL *stop) = ^(id key, id obj, BOOL *stop){
+        [request addValue:obj forHTTPHeaderField:key];
+    };
+    [headerFields enumerateKeysAndObjectsUsingBlock:enumerateHeaderFields];
+    
+    [self sendRequest:request withCompletionHandler:handler];
+}
+
++ (void)headWithURL:(NSString *)url
+   httpHeaderFields:(NSMutableDictionary *)headerFields
+             params:(NSMutableDictionary *)params
+  completionHandler:(MISURequestCompletionBlock)handler {
+    // rest化
+    NSString *restString = [params restRepresentation];
+    NSURL *fullURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", url, restString]];
+    
+    NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:fullURL] MISUAutorelease];
+    request.HTTPMethod = @"HEAD";
+    
+    void (^enumerateHeaderFields)(id key, id obj, BOOL *stop) = ^(id key, id obj, BOOL *stop){
+        [request addValue:obj forHTTPHeaderField:key];
+    };
+    [headerFields enumerateKeysAndObjectsUsingBlock:enumerateHeaderFields];
     
     [self sendRequest:request withCompletionHandler:handler];
 }
