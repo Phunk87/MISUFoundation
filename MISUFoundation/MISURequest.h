@@ -25,4 +25,24 @@ typedef void (^MISURequestCompletionBlock)(NSURLResponse *response, NSData *data
                                 params:(NSMutableDictionary *)params
                      completionHandler:(MISURequestCompletionBlock)handler NS_AVAILABLE(10_6, 4_0);
 
+// GET
++ (void)getWithURL:(NSString *)url
+            params:(NSMutableDictionary *)params
+ completionHandler:(MISURequestCompletionBlock)handler NS_AVAILABLE(10_6, 4_0);
+
+// POST
++ (void)postWithURL:(NSString *)url
+             params:(NSMutableDictionary *)params
+  completionHandler:(MISURequestCompletionBlock)handler NS_AVAILABLE(10_6, 4_0);
+
+// DELETE
++ (void)deleteWithURL:(NSString *)url
+               params:(NSMutableDictionary *)params
+    completionHandler:(MISURequestCompletionBlock)handler NS_AVAILABLE(10_6, 4_0);
+
+// PUT
++ (void)putWithURL:(NSString *)url
+            params:(NSMutableDictionary *)params
+ completionHandler:(MISURequestCompletionBlock)handler NS_AVAILABLE(10_6, 4_0);
+
 @end
