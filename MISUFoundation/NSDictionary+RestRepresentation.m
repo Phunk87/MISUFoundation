@@ -15,15 +15,14 @@
     NSMutableArray *subStringArray = [[NSMutableArray alloc] init];
     
     void (^block)(id key, id obj, BOOL *stop) = ^(id key, id obj, BOOL *stop) {
-        NSString *subString = [NSString stringWithFormat:@"%@=%@", key, obj];
+        NSString *subString = [NSString stringWithFormat:@"%@=%@", [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
+                                                                   [obj stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         [subStringArray addObject:subString];
     };
     [self enumerateKeysAndObjectsUsingBlock:block];
     
     NSString *rest = [subStringArray componentsJoinedByString:@"&"];
     [subStringArray MISURelease];
-    
-    rest = [rest stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     return rest;
 }
