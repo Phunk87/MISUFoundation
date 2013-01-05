@@ -21,7 +21,9 @@
     };
     [self enumerateKeysAndObjectsUsingBlock:block];
     
-    NSString *rest = [subStringArray componentsJoinedByString:@"&"];
+    NSString *rest = nil;
+    if ([subStringArray count])
+        rest = [subStringArray componentsJoinedByString:@"&"];
     [subStringArray MISURelease];
     
     return rest;

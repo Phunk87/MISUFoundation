@@ -25,6 +25,6 @@
 /**
  * 内存管理
  */
-#define MISUSafeRelease(inObj) id obj = (inObj);if (obj) {[obj MISURelease];} obj = nil
+#define MISUSafeRelease(inObj) {id obj = (inObj);if (obj) {[obj MISURelease];} obj = nil;}
 
 #endif
