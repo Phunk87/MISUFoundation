@@ -6,15 +6,17 @@ MISUFoundation 是一个针对OS X和iOS软件开发的轻量级基础框架, �
 
 ## 模块
 
----
-
 * Memory		内存
 * Network		网络
 * Category	数据类的扩展
 
-## License 许可
+## Donate 捐赠
 
----
+You can donate me
+via:
+* [Alipay | 支付宝](https://me.alipay.com/0dayzh)
+
+## License 许可
 
 This code is distributed under the terms of the [GNU General Public License](http://www.gnu.org/licenses/gpl.html).  
 代码使用 [GNU General Public License](http://www.gnu.org/licenses/gpl.html) 许可发布.
