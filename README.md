@@ -15,6 +15,7 @@ MISUFoundation 是一个针对OS X和iOS软件开发的轻量级基础框架, �
 You can donate me
 via:
 * [Alipay | 支付宝](https://me.alipay.com/0dayzh)
+* Bitcoin 1DK98CTQ3hXb2j3VD7Tbz4v16ytZJhtPWv
 
 ## License 许可
 
